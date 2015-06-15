@@ -1,0 +1,134 @@
+*
+{
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	margin: 0;
+	padding: 0;
+}
+
+html, body
+{
+	background-color: #EEEEEE;
+}
+
+html, body, #chooser, #scene
+{
+	width: 100%;
+	height: 100%;
+}
+
+#footer
+{
+	z-index: 1;
+	position: absolute;
+	text-align: center;
+	width: 200px;
+	font-size: 13px;
+	color: #AAAAAA;
+	bottom: 10px;
+	left: 50%;
+	margin-left: -100px;
+}
+
+#footer a
+{
+	font-size: 13px;
+	text-decoration: none;
+	color: #AAAAAA;
+}
+
+#footer a:hover
+{
+	text-decoration: underline;
+	color: #4285F4;
+}
+
+#chooser, #scene
+{
+	position: absolute;
+	transition: opacity 1s ease, visibility 1s ease;
+	opacity: 1;
+	visibility: visible;
+}
+
+#chooser.hidden, #scene.hidden
+{
+	opacity: 0;
+	visibility: hidden;
+}
+
+#chooser #chooser-dialog
+{
+	position: absolute;
+	overflow: hidden;
+	width: 400px;
+	height: 140px;
+	top: 50%;
+	left: 50%;
+	margin-top: -70px;
+	margin-left: -200px;
+	background-color: #FFFFFF;
+	border-radius: 3px;
+	padding: 20px 20px 0 20px;
+	box-sizing: border-box;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+	/*box-shadow: 0 17px 17px 0 rgba(0, 0, 0, 0.15), 0 27px 55px 0 rgba(0, 0, 0, 0.3);*/
+}
+
+#chooser #chooser-dialog h1
+{
+	margin: 0 0 15px 0;
+	font-size: 23px;
+	font-weight: 500;
+}
+
+#chooser #chooser-dialog input
+{
+	display: block;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+}
+
+#chooser #chooser-dialog button
+{
+	outline: none;
+	display: block;
+	border: none;
+	background-color: transparent;
+	padding: 10px 20px 16px 20px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	text-transform: uppercase;
+	width: 120px;
+	box-sizing: border-box;
+	margin-left: 260px;
+	color: #4285F4;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	transition: background-color 0.14s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#chooser #chooser-dialog button:active
+{
+	background-color: #EEEEEE;
+}
+
+#chooser #chooser-dialog button.disabled
+{
+	background-color: #FFFFFF;
+	cursor: default;
+	color: #AAAAAA;
+}
+
+#scene #scene-canvas
+{
+	position: absolute;
+	width: 600px;
+	height: 600px;
+	top: 50%;
+	left: 50%;
+	margin-top: -300px;
+	margin-left: -300px;
+	/*outline: 1px dashed #CCCCCC;*/
+}
