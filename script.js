@@ -23,6 +23,9 @@ var lastTimeStamp = 0;
 var textX = 200;
 var textStopState = 1;
 var textStopStartTimeStamp = -1;
+var volume = 0.75;
+var audioGainNode = null;
+var volumeAnimation = 0;
 
 window.onload = function()
 {
@@ -50,7 +53,43 @@ window.onload = function()
 	
 	canvas = document.getElementById("scene-canvas");
 	ctx = canvas.getContext("2d");
+	
+	if(canvas.addEventListener)
+	{
+		// IE9, Chrome, Safari, Opera
+		canvas.addEventListener("mousewheel", cbCanvasScroll, false);
+		// Firefox
+		canvas.addEventListener("DOMMouseScroll", cbCanvasScroll, false);
+	}
+	// IE 6/7/8
+	else
+	{
+		canvas.attachEvent("onmousewheel", cbCanvasScroll);
+	}
 };
+
+function cbCanvasScroll(e)
+{
+	var e = window.event || e;
+	var detail = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+	
+	if(detail > 0)
+	{
+		volume = Math.min(1, volume + 0.025);
+	}
+	else
+	{
+		volume = Math.max(0, volume - 0.025);
+	}
+	
+	if(audioGainNode != null)
+	{
+		console.log("Volume set to: " + volume);
+		audioGainNode.gain.value = volume;
+	}
+	
+	volumeAnimation = 300;
+}
 
 function cbInputChange()
 {
@@ -126,14 +165,24 @@ function visualize(buffer)
 {
 	audioBufferSourceNode = audioContext.createBufferSource();
 	analyser = audioContext.createAnalyser();
-	audioBufferSourceNode.connect(analyser);
-	analyser.connect(audioContext.destination);
+	audioGainNode = audioContext.createGain();
+	
 	audioBufferSourceNode.buffer = buffer;
+	analyser.smoothingTimeConstant = 0.75;
+	audioGainNode.gain.value = volume;
+	
+	audioBufferSourceNode.connect(analyser);
+	analyser.connect(audioGainNode);
+	audioGainNode.connect(audioContext.destination);
+	
 	audioBufferSourceNode.start();
+	
 	audioPlaying = true;
 	startTime = audioContext.currentTime;
 	durationTime = buffer.duration;
+	
 	draw(0);
+	
 	audioBufferSourceNode.onended = function()
 	{
 		audioBufferSourceNode.stop();
@@ -223,6 +272,8 @@ function draw(currentTimeStamp)
 	ctx.arc(300, 300, 150, -0.5 * Math.PI, (elapsedTime / durationTime) * Math.PI * 2 - (0.5 * Math.PI), false);
 	ctx.stroke();
 	
+	ctx.globalAlpha = (100 - Math.max(Math.min(volumeAnimation, 100), 0)) / 100;
+	
 	ctx.fillStyle = "#222222";
 	ctx.font = "100 75px Roboto";
 	ctx.textAlign = "center";
@@ -292,6 +343,21 @@ function draw(currentTimeStamp)
 		ctx.fillText(fileName, 300, 240);
 	}
 	ctx.restore();
+	
+	ctx.globalAlpha = (Math.max(Math.min(volumeAnimation, 150), 50) - 50) / 100;
+	
+	ctx.fillStyle = "#222222";
+	ctx.font = "100 75px Roboto";
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillText(Math.round(volume * 100) + "%", 300, 300);
+	
+	ctx.globalAlpha = 1;
+	
+	if(volumeAnimation > 0)
+	{
+		volumeAnimation -= (currentTimeStamp - lastTimeStamp) / 5;
+	}
 	
 	// bug workaround, see https://code.google.com/p/chromium/issues/detail?id=403908
 	if(audioPlaying && elapsedTime / durationTime > 1)
