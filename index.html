@@ -3,11 +3,12 @@
 	<head>
 		<title>NIPE-SYSTEMS - HTML5 Web Audio API Showcase</title>
 		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="loader.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
 		<script src="script.js"></script>
 	</head>
 	<body>
-		<div id="footer">Made with <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path id="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> with HTML5 technologies.<br />&copy; 2015 <a href="http://nipe-systems.de" target="_blank">NIPE-SYSTEMS</a> &#8211; Fork this on <a href="https://github.com/NIPE-SYSTEMS/html5-web-audio-showcase" target="_blank">GitHub</a></div>
+		<div id="footer">Made with <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path id="heartShape" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> with HTML5 technologies.<br />&copy; 2015 <a href="http://nipe-systems.de" target="_blank">NIPE-SYSTEMS</a> &#8211; Fork this on <a href="https://github.com/NIPE-SYSTEMS/html5-web-audio-showcase" target="_blank">GitHub</a></div>
 		<div id="error" class="hidden">
 			<div id="error-dialog">
 				<h1 id="error-title"></h1>
@@ -21,7 +22,7 @@
 				<h2>Choose a song</h2>
 				<input type="file" id="chooser-input" />
 				<p>Only audio files are allowed (MIME: audio/*). The files are processed local.</p>
-				<button id="chooser-button">Play song</button>
+				<div id="spinner-outer" class="hidden"><svg id="spinner" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="15" cy="15" r="13"></circle></svg></div><button id="chooser-button">Play song</button>
 			</div>
 		</div>
 		<div id="scene" class="hidden">

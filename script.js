@@ -140,22 +140,26 @@ function cbButtonClick()
 				}
 				audioContext.decodeAudioData(fileResult, function(buffer)
 				{
-					setTimeout(function() { visualize(buffer); }, 1000);
+					setTimeout(function() { visualize(buffer); document.getElementById("spinner-outer").className = "hidden"; }, 1000);
 					
 					showScene();
 				}, function(error)
 				{
 					console.error(error);
 					showError("Error while decoding the audio", error.toString());
+					document.getElementById("spinner-outer").className = "hidden";
 				});
 			};
 			fileReader.onerror = function(error)
 			{
 				console.error(error);
 				showError("Error while reading file", error.toString());
+				document.getElementById("spinner-outer").className = "hidden";
 			};
 			
 			fileReader.readAsArrayBuffer(file);
+			
+			document.getElementById("spinner-outer").className = "";
 		}
 		else
 		{

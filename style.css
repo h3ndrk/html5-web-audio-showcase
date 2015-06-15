@@ -82,13 +82,22 @@ html, body, #chooser, #scene
 	height: 100%;
 }
 
-svg
+svg#heart
 {
 	margin: 0 0 -2px 0;
 }
 
-svg path#heart
+svg#heart path#heartShape
 {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: heartbeat;
+	-webkit-animation-iteration-count: infinite;
+	-moz-animation-duration: 1s;
+	-moz-animation-name: heartbeat;
+	-moz-animation-iteration-count: infinite;
+	-o-animation-duration: 1s;
+	-o-animation-name: heartbeat;
+	-o-animation-iteration-count: infinite;
 	animation-duration: 1s;
 	animation-name: heartbeat;
 	animation-iteration-count: infinite;
