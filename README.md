@@ -2,6 +2,10 @@
 
 ![Screenshot of the Project](screenshot.png)
 
+## Demo of the showcase
+
+... can be found at [http://nipe-systems.de/webapps/html5-web-audio](http://nipe-systems.de/webapps/html5-web-audio).
+
 ## How to use
 
 1. Select an audio file
