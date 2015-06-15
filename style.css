@@ -231,3 +231,88 @@ svg path#heart
 	margin-left: -300px;
 	/*outline: 1px dashed #CCCCCC;*/
 }
+
+#error
+{
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.25);
+	transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 1;
+	visibility: visible;
+}
+
+#error #error-dialog
+{
+	position: absolute;
+	overflow: hidden;
+	width: 300px;
+	height: 150px;
+	top: 50%;
+	left: 50%;
+	margin-top: -75px;
+	margin-left: -150px;
+	background-color: #FFFFFF;
+	border-radius: 3px;
+	padding: 20px 20px 0 20px;
+	box-sizing: border-box;
+	/*box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);*/
+	box-shadow: 0 17px 17px 0 rgba(0, 0, 0, 0.15), 0 27px 55px 0 rgba(0, 0, 0, 0.3);
+	transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translate(0, 0);
+}
+
+#error.hidden
+{
+	opacity: 0;
+	visibility: hidden;
+}
+
+#error.hidden #error-dialog
+{
+	transform: translate(0, -200px);
+}
+
+#error #error-dialog h1
+{
+	height: 30px;
+	margin: 0 0 15px 0;
+	font-size: 23px;
+	font-weight: 500;
+}
+
+#error #error-dialog p
+{
+	height: 40px;
+	color: #666666;
+	font-size: 15px;
+}
+
+#error #error-dialog button
+{
+	outline: none;
+	display: block;
+	border: none;
+	background-color: transparent;
+	padding: 10px 20px 16px 20px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	text-transform: uppercase;
+	width: 100px;
+	box-sizing: border-box;
+	margin-left: 180px;
+	color: #4285F4;
+	background-color: #FFFFFF;
+	cursor: pointer;
+	transition: background-color 0.14s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#error #error-dialog button:active
+{
+	background-color: #EEEEEE;
+}

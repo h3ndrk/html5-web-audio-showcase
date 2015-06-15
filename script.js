@@ -29,7 +29,7 @@ var volumeAnimation = 0;
 
 window.onload = function()
 {
-	console && console.log("%cFancy Audio\n%cFancy HTML5 Audio Visualizer\nCopyright 2015 NIPE-SYSTEMS", "font-size: 1.5em; font-weight: bold;", "font-size: 1em;");
+	console && console.log("%cHTML5 Web Audio API Showcase\n%cA Fancy HTML5 Audio Visualizer based on Web Audio API\nCopyright 2015 NIPE-SYSTEMS\nFork this on GitHub: https://github.com/NIPE-SYSTEMS/html5-web-audio-showcase", "font-size: 1.5em; font-weight: bold;", "font-size: 1em;");
 	
 	window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
 	window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -72,6 +72,8 @@ window.onload = function()
 	
 	analyser.connect(audioGainNode);
 	audioGainNode.connect(audioContext.destination);
+	
+	document.getElementById("error-button").onclick = cbErrorButtonClick;
 };
 
 function cbCanvasScroll(e)
@@ -126,30 +128,39 @@ function cbButtonClick()
 {
 	if(!buttonDisabled)
 	{
-		var fileReader = new FileReader();
-		fileReader.onload = function(e)
+		if(file.type.split("/")[0] == "audio")
 		{
-			var fileResult = e.target.result;
-			if(audioContext == null)
+			var fileReader = new FileReader();
+			fileReader.onload = function(e)
 			{
-				return;
-			}
-			audioContext.decodeAudioData(fileResult, function(buffer)
-			{
-				setTimeout(function() { visualize(buffer); }, 1000);
-				
-				showScene();
-			}, function(error)
+				var fileResult = e.target.result;
+				if(audioContext == null)
+				{
+					return;
+				}
+				audioContext.decodeAudioData(fileResult, function(buffer)
+				{
+					setTimeout(function() { visualize(buffer); }, 1000);
+					
+					showScene();
+				}, function(error)
+				{
+					console.error(error);
+					showError("Error while decoding the audio", error.toString());
+				});
+			};
+			fileReader.onerror = function(error)
 			{
 				console.error(error);
-			});
-		};
-		fileReader.onerror = function(error)
+				showError("Error while reading file", error.toString());
+			};
+			
+			fileReader.readAsArrayBuffer(file);
+		}
+		else
 		{
-			console.error(error);
-		};
-		
-		fileReader.readAsArrayBuffer(file);
+			showError("Not an audio file", "The selected file does not match to the MIME-pattern: audio/*");
+		}
 	}
 }
 
@@ -398,4 +409,16 @@ function draw(currentTimeStamp)
 	}
 	
 	lastTimeStamp = currentTimeStamp;
+}
+
+function showError(title, text)
+{
+	document.getElementById("error-title").innerHTML = title;
+	document.getElementById("error-text").innerHTML = text;
+	document.getElementById("error").className = "";
+}
+
+function cbErrorButtonClick()
+{
+	document.getElementById("error").className = "hidden";
 }
