@@ -66,6 +66,12 @@ window.onload = function()
 	{
 		canvas.attachEvent("onmousewheel", cbCanvasScroll);
 	}
+	
+	analyser = audioContext.createAnalyser();
+	audioGainNode = audioContext.createGain();
+	
+	analyser.connect(audioGainNode);
+	audioGainNode.connect(audioContext.destination);
 };
 
 function cbCanvasScroll(e)
@@ -85,7 +91,7 @@ function cbCanvasScroll(e)
 	if(audioGainNode != null)
 	{
 		// console.log("Volume set to: " + volume);
-		audioGainNode.gain.value = volume;
+		audioGainNode.gain.value = Math.pow(volume, 2.0); // makes the volume more realistic
 	}
 	
 	volumeAnimation = 400;
@@ -164,16 +170,12 @@ function showChooser()
 function visualize(buffer)
 {
 	audioBufferSourceNode = audioContext.createBufferSource();
-	analyser = audioContext.createAnalyser();
-	audioGainNode = audioContext.createGain();
 	
 	audioBufferSourceNode.buffer = buffer;
 	analyser.smoothingTimeConstant = 0.75;
 	audioGainNode.gain.value = volume;
 	
 	audioBufferSourceNode.connect(analyser);
-	analyser.connect(audioGainNode);
-	audioGainNode.connect(audioContext.destination);
 	
 	audioBufferSourceNode.start();
 	
@@ -186,6 +188,7 @@ function visualize(buffer)
 	audioBufferSourceNode.onended = function()
 	{
 		audioBufferSourceNode.stop();
+		audioBufferSourceNode.disconnect();
 		
 		if(animationFrameId !== null)
 		{
@@ -204,6 +207,13 @@ function generateTime(seconds)
 	var seconds = Math.floor(seconds % 60);
 	
 	return ((minutes < 10)?("0" + minutes):(minutes)) + ":" + ((seconds < 10)?("0" + seconds):(seconds));
+}
+
+function generateName(fileName)
+{
+	var parts = fileName.split(".");
+	parts.pop();
+	return parts.join(".");
 }
 
 function clearDraw()
@@ -287,7 +297,7 @@ function draw(currentTimeStamp)
 	
 	ctx.fillStyle = "#AAAAAA";
 	ctx.font = "400 13px Roboto";
-	if(ctx.measureText(fileName).width > 200)
+	if(ctx.measureText(generateName(fileName)).width > 200)
 	{
 		// animate
 		switch(textStopState)
@@ -318,7 +328,7 @@ function draw(currentTimeStamp)
 			case 2:
 			{
 				textX -= (currentTimeStamp - lastTimeStamp) / 25;
-				if(textX <= 200 - ctx.measureText(fileName).width)
+				if(textX <= 200 - ctx.measureText(generateName(fileName)).width)
 				{
 					textX = 400;
 					textStopState = 0;
@@ -328,13 +338,13 @@ function draw(currentTimeStamp)
 		}
 		ctx.textAlign = "left";
 		ctx.textBaseline = "alphabetic";
-		ctx.fillText(fileName, textX, 240);
+		ctx.fillText(generateName(fileName), textX, 240);
 	}
 	else
 	{
 		ctx.textAlign = "center";
 		ctx.textBaseline = "alphabetic";
-		ctx.fillText(fileName, 300, 240);
+		ctx.fillText(generateName(fileName), 300, 240);
 	}
 	ctx.restore();
 	

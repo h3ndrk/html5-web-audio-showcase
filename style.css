@@ -1,3 +1,67 @@
+@-webkit-keyframes heartbeat
+{
+	0%
+	{
+		transform: scale(1);
+	}
+	10%
+	{
+		transform: scale(1.2);
+	}
+	50%
+	{
+		transform: scale(1);
+	}
+}
+
+@-moz-keyframes heartbeat
+{
+	0%
+	{
+		transform: scale(1);
+	}
+	10%
+	{
+		transform: scale(1.2);
+	}
+	50%
+	{
+		transform: scale(1);
+	}
+}
+
+@-o-keyframes heartbeat
+{
+	0%
+	{
+		transform: scale(1);
+	}
+	10%
+	{
+		transform: scale(1.2);
+	}
+	50%
+	{
+		transform: scale(1);
+	}
+}
+
+@keyframes heartbeat
+{
+	0%
+	{
+		transform: scale(1);
+	}
+	10%
+	{
+		transform: scale(1.2);
+	}
+	50%
+	{
+		transform: scale(1);
+	}
+}
+
 *
 {
 	font-family: 'Roboto', sans-serif;
@@ -13,8 +77,23 @@ html, body
 
 html, body, #chooser, #scene
 {
+	min-height: 630px;
 	width: 100%;
 	height: 100%;
+}
+
+svg
+{
+	margin: 0 0 -2px 0;
+}
+
+svg path#heart
+{
+	animation-duration: 1s;
+	animation-name: heartbeat;
+	animation-iteration-count: infinite;
+	transform-origin: center center;
+	fill: #FF6688;
 }
 
 #footer
@@ -22,24 +101,22 @@ html, body, #chooser, #scene
 	z-index: 1;
 	position: absolute;
 	text-align: center;
-	width: 200px;
+	width: 300px;
 	font-size: 13px;
 	color: #AAAAAA;
 	bottom: 10px;
 	left: 50%;
-	margin-left: -100px;
+	margin-left: -150px;
 }
 
 #footer a
 {
 	font-size: 13px;
-	text-decoration: none;
 	color: #AAAAAA;
 }
 
 #footer a:hover
 {
-	text-decoration: underline;
 	color: #4285F4;
 }
 
@@ -62,10 +139,10 @@ html, body, #chooser, #scene
 	position: absolute;
 	overflow: hidden;
 	width: 400px;
-	height: 140px;
+	height: 190px;
 	top: 50%;
 	left: 50%;
-	margin-top: -70px;
+	margin-top: -95px;
 	margin-left: -200px;
 	background-color: #FFFFFF;
 	border-radius: 3px;
@@ -75,7 +152,22 @@ html, body, #chooser, #scene
 	/*box-shadow: 0 17px 17px 0 rgba(0, 0, 0, 0.15), 0 27px 55px 0 rgba(0, 0, 0, 0.3);*/
 }
 
-#chooser #chooser-dialog h1
+#chooser h1
+{
+	color: #444444;
+	position: absolute;
+	width: 400px;
+	height: 30px;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -200px;
+	font-size: 23px;
+	font-weight: 300;
+	text-align: center;
+}
+
+#chooser #chooser-dialog h2
 {
 	margin: 0 0 15px 0;
 	font-size: 23px;
@@ -87,6 +179,13 @@ html, body, #chooser, #scene
 	display: block;
 	height: 30px;
 	font-family: 'Roboto', sans-serif;
+}
+
+#chooser #chooser-dialog p
+{
+	height: 50px;
+	color: #888888;
+	font-size: 14px;
 }
 
 #chooser #chooser-dialog button
@@ -118,7 +217,7 @@ html, body, #chooser, #scene
 {
 	background-color: #FFFFFF;
 	cursor: default;
-	color: #AAAAAA;
+	color: #CCCCCC;
 }
 
 #scene #scene-canvas
