@@ -84,11 +84,11 @@ function cbCanvasScroll(e)
 	
 	if(audioGainNode != null)
 	{
-		console.log("Volume set to: " + volume);
+		// console.log("Volume set to: " + volume);
 		audioGainNode.gain.value = volume;
 	}
 	
-	volumeAnimation = 300;
+	volumeAnimation = 400;
 }
 
 function cbInputChange()
@@ -261,16 +261,10 @@ function draw(currentTimeStamp)
 	ctx.fill();
 	ctx.stroke();
 	
+	ctx.fillStyle = "#FFFFFF";
 	ctx.beginPath();
 	ctx.arc(300, 300, radius, 0, 2 * Math.PI, false);
 	ctx.fill();
-	ctx.stroke();
-	
-	ctx.strokeStyle = "#3E9DFF";
-	ctx.lineWidth = 2.0;
-	ctx.beginPath();
-	ctx.arc(300, 300, 150, -0.5 * Math.PI, (elapsedTime / durationTime) * Math.PI * 2 - (0.5 * Math.PI), false);
-	ctx.stroke();
 	
 	ctx.globalAlpha = (100 - Math.max(Math.min(volumeAnimation, 100), 0)) / 100;
 	
@@ -346,6 +340,16 @@ function draw(currentTimeStamp)
 	
 	ctx.globalAlpha = (Math.max(Math.min(volumeAnimation, 150), 50) - 50) / 100;
 	
+	ctx.save();
+	ctx.beginPath();
+	ctx.arc(300, 300, radius, 0, 2 * Math.PI, false);
+	ctx.clip();
+	
+	ctx.fillStyle = "#F8F8F8";
+	ctx.fillRect(150, 150 + (1 - volume) * 300, 300, volume * 300);
+	
+	ctx.restore();
+	
 	ctx.fillStyle = "#222222";
 	ctx.font = "100 75px Roboto";
 	ctx.textAlign = "center";
@@ -354,9 +358,20 @@ function draw(currentTimeStamp)
 	
 	ctx.globalAlpha = 1;
 	
+	ctx.strokeStyle = "#DDDDDD";
+	ctx.beginPath();
+	ctx.arc(300, 300, radius, 0, 2 * Math.PI, false);
+	ctx.stroke();
+	
+	ctx.strokeStyle = "#3E9DFF";
+	ctx.lineWidth = 2.0;
+	ctx.beginPath();
+	ctx.arc(300, 300, 150, -0.5 * Math.PI, (elapsedTime / durationTime) * Math.PI * 2 - (0.5 * Math.PI), false);
+	ctx.stroke();
+	
 	if(volumeAnimation > 0)
 	{
-		volumeAnimation -= (currentTimeStamp - lastTimeStamp) / 5;
+		volumeAnimation -= (currentTimeStamp - lastTimeStamp) / 2.5;
 	}
 	
 	// bug workaround, see https://code.google.com/p/chromium/issues/detail?id=403908
