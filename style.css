@@ -101,6 +101,9 @@ svg#heart path#heartShape
 	animation-duration: 1s;
 	animation-name: heartbeat;
 	animation-iteration-count: infinite;
+	-webkit-transform-origin: center center;
+	-moz-transform-origin: center center;
+	-o-transform-origin: center center;
 	transform-origin: center center;
 	fill: #FF6688;
 }
@@ -208,9 +211,9 @@ svg#heart path#heartShape
 	font-size: 14px;
 	font-weight: 500;
 	text-transform: uppercase;
-	width: 120px;
+	width: 140px;
 	box-sizing: border-box;
-	margin-left: 260px;
+	margin-left: 240px;
 	color: #4285F4;
 	background-color: #FFFFFF;
 	cursor: pointer;
@@ -312,9 +315,9 @@ svg#heart path#heartShape
 	font-size: 14px;
 	font-weight: 500;
 	text-transform: uppercase;
-	width: 100px;
+	width: 80px;
 	box-sizing: border-box;
-	margin-left: 180px;
+	margin-left: 186px;
 	color: #4285F4;
 	background-color: #FFFFFF;
 	cursor: pointer;
