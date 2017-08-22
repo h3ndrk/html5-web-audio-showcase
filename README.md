@@ -4,7 +4,7 @@
 
 ## Demo of the showcase
 
-... can be found at [http://nipe-systems.de/webapps/html5-web-audio](http://nipe-systems.de/webapps/html5-web-audio).
+... can be found at [https://nipe-systems.de/webapps/html5-web-audio](https://nipe-systems.de/webapps/html5-web-audio).
 
 ## How to use
 
@@ -34,4 +34,4 @@
 
 lastest GPL-license (see LICENSE-file)
 
-Copyright (C) 2015 NIPE-SYSTEMS, [http://nipe-systems.de](http://nipe-systems.de)
+Copyright (C) 2015 NIPE-SYSTEMS, [https://nipe-systems.de](https://nipe-systems.de)
