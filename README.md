@@ -4,7 +4,7 @@
 
 ## Demo of the showcase
 
-... can be found at [https://nipe-systems.de/webapps/html5-web-audio](https://nipe-systems.de/webapps/html5-web-audio).
+... can be found at [http://h3ndrk.github.io/html5-web-audio-showcase/](http://h3ndrk.github.io/html5-web-audio-showcase/).
 
 ## How to use
 
